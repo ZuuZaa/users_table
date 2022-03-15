@@ -2,12 +2,12 @@ import { UsersTable } from "containers/UsersTable";
 import { NavBar } from "components/NavBar";
 
 export const SearchReSultsContainer = (data) => {
-    return(
+    return (
         <>
-        <NavBar/>
-       <UsersTable 
-       //data={data} 
-       />
-       </>
+            <NavBar />
+            <UsersTable
+            //data={data} 
+            />
+        </>
     )
 }

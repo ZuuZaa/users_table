@@ -20,7 +20,7 @@ export const UsersContainer = () => {
     return (
 
         <Box sx={{ backgroundColor: '#f5f5f5', height: '100vh', padding: 2 }}>
-            <NavBar data={users} />
+            <NavBar data={users}  />
             <UsersTable data={users} />
         </Box>
     )

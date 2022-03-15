@@ -1,24 +1,30 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
+
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
-import { Alert, Box, Button, Grid, Snackbar } from "@mui/material";
+import {Box} from "@mui/material";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export const SearchBar = (data) => {
+    
+    // const dispatch = useDispatch();
+    // const users = useSelector(USERS_SELECTORS.getUsers);
+
+    // useEffect(() => {
+    //     dispatch(USERS_ACTIONS.fetchUsers())
+    // }, [dispatch])
+
+    // console.log('users', users)
 
     const navigate = useNavigate();
     const [value, setValue] = useState("");
-    const handleChange = () => (event) => setValue(event.target.value);
+    const handleChange = () => (event) => setValue(event.target.value); 
+
     const users = data.data.data;
     return (
         <Box

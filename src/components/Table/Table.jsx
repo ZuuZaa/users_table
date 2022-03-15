@@ -19,6 +19,7 @@ export const Table = ({ columns, rows }) => {
 
   const data = rows.data
 
+  console.log('data', data)
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
