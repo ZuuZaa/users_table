@@ -14,7 +14,7 @@ const tableHeader = [
       },
       {
         key: "email",
-        label: "E-mail address",
+        label: "Email address",
         minWidth: { minWidth: 170 }
       },
       {
@@ -24,7 +24,7 @@ const tableHeader = [
       },
       {
         key: "website",
-        label: "Web Site",
+        label: "Official Site",
         minWidth: { minWidth: 170 }
       },
 ]
