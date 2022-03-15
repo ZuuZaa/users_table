@@ -2,7 +2,9 @@ import { dividerClasses, Typography } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { USERS_SELECTORS, USERS_ACTIONS } from "store/users";
-import { Table } from "components/Table"
+import { Table } from "components/Table";
+import { NavBar } from "components/NavBar";
+import { Box } from "@mui/system";
 
 const tableHeader = [
     {
@@ -68,9 +70,9 @@ export const UsersContainer = () => {
     console.log('users', users)
 
     return (
-        <>
-            <Typography variant="h4">users:</Typography>
+        <Box sx={{backgroundColor:'#f5f5f5', height: '100vh', padding: 2}}>
+            <NavBar/>
             <Table columns={tableHeader} />
-        </>
+        </Box>
     )
 }
