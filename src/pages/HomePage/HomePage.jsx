@@ -1,4 +1,4 @@
-import { UsersContainer } from "container/UsersContainer";
+import { UsersContainer } from "containers/UsersContainer";
 
 export const HomePage = () => {
     return(

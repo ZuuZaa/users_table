@@ -1,14 +1,12 @@
 import React from "react";
-import { useTable } from "react-table";
 import { useState } from 'react';
-import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Box, Paper, CircularProgress, TableFooter } from '@mui/material';
-import { Description } from '@mui/icons-material'
+import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper } from '@mui/material';
 import _ from "lodash";
- 
 
-export const Table = ({columns, rows}) => {
+
+export const Table = ({ columns, rows }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -18,6 +16,9 @@ export const Table = ({columns, rows}) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const data = rows.data
+
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -36,39 +37,36 @@ export const Table = ({columns, rows}) => {
               ))}
             </TableRow>
           </TableHead>
-          {/* <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          <TableBody>
+            {data
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
-                      const value = row[column.id];
+                      const value = row[column.key];
                       return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
+                        <TableCell key={column.key} align={column.align}>
+                          {value}
                         </TableCell>
                       );
                     })}
                   </TableRow>
                 );
               })}
-          </TableBody> */}
+          </TableBody>
         </MuiTable>
       </TableContainer>
-      {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+      <TablePagination
+        rowsPerPageOptions={[4, 10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      /> */}
+      />
     </Paper>
   );
 }
 
-  
