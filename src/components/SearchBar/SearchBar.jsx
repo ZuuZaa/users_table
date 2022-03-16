@@ -1,41 +1,31 @@
 
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { QUERY_ACTIONS } from 'store/query';
+import { useDispatch } from 'react-redux';
 
 
-export const SearchBar = (data) => {
-    
-    // const dispatch = useDispatch();
-    // const users = useSelector(USERS_SELECTORS.getUsers);
-
-    // useEffect(() => {
-    //     dispatch(USERS_ACTIONS.fetchUsers())
-    // }, [dispatch])
-
-    // console.log('users', users)
-
-    const navigate = useNavigate();
+export const SearchBar = () => {
     const [value, setValue] = useState("");
-    const handleChange = () => (event) => setValue(event.target.value); 
+    const handleChange = () => (event) => setValue(event.target.value);
+    const dispatch = useDispatch();
+    const setQueryHandler = (data) => dispatch(QUERY_ACTIONS.setQuery(data));
+    const navigate = useNavigate();
 
-    const users = data.data.data;
     return (
         <Box
             component="form"
             onSubmit={event => {
                 event.preventDefault();
                 console.log('value', value)
-                //setLoading(false);
-                const searchedUser = value => users.filter(element => element.name.includes(value));
-                console.log("result", searchedUser(value))
-                navigate("/results")
+                setQueryHandler(value);
+                navigate('/results')
             }
             }
             noValidate
@@ -45,7 +35,7 @@ export const SearchBar = (data) => {
                     id="search"
                     type="text"
                     value={value}
-                    sx={{backgroundColor:"#fff", width:400}}
+                    sx={{ backgroundColor: "#fff", width: 400 }}
                     placeholder="Search by User Name"
                     onChange={handleChange()}
                     endAdornment={

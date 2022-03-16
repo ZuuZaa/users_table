@@ -1,0 +1,3 @@
+export const QUERY_ACTION_TYPES = {
+  SET_QUERY:"@@SET-QUERY"
+}

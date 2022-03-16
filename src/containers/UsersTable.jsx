@@ -23,8 +23,8 @@ const tableHeader = [
       },
 ]
  
-export const UsersTable = (data) => {
+export const UsersTable = (data, loading) => {
     return (
-        <Table columns={tableHeader} rows={data}/>
+        <Table columns={tableHeader} rows={data} loading={loading}/>
     )
 }

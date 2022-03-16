@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from 'react';
 import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper } from '@mui/material';
-import _ from "lodash";
+import {isEmpty} from "lodash";
 
 
-export const Table = ({ columns, rows }) => {
+export const Table = ({ columns, rows, loading }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
-
+ console.log('loading', loading)
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -17,10 +17,8 @@ export const Table = ({ columns, rows }) => {
     setPage(0);
   };
 
-  const data = rows.data
-
-  console.log('data', data)
-
+  const data = rows.data;
+  
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -39,8 +37,9 @@ export const Table = ({ columns, rows }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            
+            { !isEmpty(data) && data 
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -58,7 +57,9 @@ export const Table = ({ columns, rows }) => {
           </TableBody>
         </MuiTable>
       </TableContainer>
-      <TablePagination
+      {
+        !isEmpty(data) && 
+        <TablePagination
         rowsPerPageOptions={[4, 10, 25, 100]}
         component="div"
         count={data.length}
@@ -67,6 +68,7 @@ export const Table = ({ columns, rows }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      }
     </Paper>
   );
 }
