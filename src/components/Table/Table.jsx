@@ -5,8 +5,7 @@ import { isEmpty } from "lodash";
 import { Description } from '@mui/icons-material'
 
 
-
-export const Table = ({ columns, rows, loading }) => {
+export const Table = ({ columns, rows }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const handleChangePage = (event, newPage) => {
@@ -20,6 +19,8 @@ export const Table = ({ columns, rows, loading }) => {
 
   const data = rows.data;
 
+  console.log('data',data)
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -29,7 +30,6 @@ export const Table = ({ columns, rows, loading }) => {
               {columns.map((column) => (
                 <TableCell
                   key={column.key}
-                  align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   <Typography>{column.label}</Typography>
@@ -38,27 +38,38 @@ export const Table = ({ columns, rows, loading }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!isEmpty(data) ? data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.key];
-                      return (
-                        <TableCell key={column.key} align={column.align}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })
-              :
-              <Box sx={{padding:5,display:'flex', justifyContent:'center', alignItems:'center', width:'100vw'}}>
-                <Description sx={{color:'#311b92', fontSize:100}}/>
-                <Typography >No users were found with this name</Typography>
-              </Box>
+            {
+              !isEmpty(data) && data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  {console.log('row',)}
+                  return (
+                    <TableRow hover key={row.id}>
+                      {columns.map((column) => {
+                        if (column.render) {
+                          return (
+                            <TableCell key={column.key}>
+                              <Box>
+                                {column.render(row)}
+                              </Box>
+                            </TableCell>
+                          )
+                        } else {
+                          const value = row[column.key];
+                          return (
+                            <TableCell key={column.key}>
+                              <Box >
+                                <Typography>
+                                  {value}
+                                </Typography>
+                              </Box>
+                            </TableCell>
+                          )
+                        }
+                      })}
+                    </TableRow>
+                  );
+                })
             }
           </TableBody>
         </MuiTable>
@@ -75,10 +86,13 @@ export const Table = ({ columns, rows, loading }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       }
-
-
-
+      {
+        isEmpty(data) &&
+        <Box sx={{ padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw' }}>
+          <Description sx={{ color: '#311b92', fontSize: 80 }} />
+          <Typography sx={{ color: '#311b92' }} variant="h4" >No Data</Typography>
+        </Box>
+      }
     </Paper>
   );
 }
-

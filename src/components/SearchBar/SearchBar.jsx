@@ -1,4 +1,3 @@
-
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from "@mui/material";
@@ -23,7 +22,6 @@ export const SearchBar = () => {
             component="form"
             onSubmit={event => {
                 event.preventDefault();
-                console.log('value', value)
                 setQueryHandler(value);
                 navigate('/results')
             }

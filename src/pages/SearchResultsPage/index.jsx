@@ -1,1 +1,2 @@
-export * from "./SearchResultsPage";
+import SearchResultsPage from "./SearchResultsPage";
+export default SearchResultsPage;

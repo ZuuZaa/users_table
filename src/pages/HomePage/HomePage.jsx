@@ -1,7 +1,9 @@
 import { UsersContainer } from "containers/UsersContainer";
 
-export const HomePage = () => {
+const HomePage = () => {
     return(
         <UsersContainer/>
     )
 }
+
+export default HomePage;
