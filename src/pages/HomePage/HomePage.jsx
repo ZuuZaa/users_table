@@ -1,8 +1,8 @@
 import { UsersContainer } from "containers/UsersContainer";
 
 const HomePage = () => {
-    return(
-        <UsersContainer/>
+    return (
+        <UsersContainer />
     )
 }
 

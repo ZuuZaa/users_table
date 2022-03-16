@@ -7,8 +7,6 @@ const HomePage = lazy(() => import('pages/HomePage'));
 const SearchResultsPage = lazy(() => import('pages/SearchResultsPage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
-
-
 export const Routing = () => {
     return (
         <Routes>

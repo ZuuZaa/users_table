@@ -8,12 +8,12 @@ export const UsersContainer = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(USERS_SELECTORS.getUsers);
-    const loading = useSelector(USERS_SELECTORS.getUsersLoading);
+
     useEffect(() => {
         dispatch(USERS_ACTIONS.fetchUsers())
     }, [dispatch])
 
     return (
-        <UsersTable data={users} loading={loading}/>
+        <UsersTable data={users} />
     )
 }

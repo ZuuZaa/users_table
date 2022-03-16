@@ -1,7 +1,7 @@
 import { SearchReSultsContainer } from "containers/SearchResultsContainer";
 
 const SearchResultsPage = () => {
-    return(
+    return (
         <SearchReSultsContainer />
     )
 }

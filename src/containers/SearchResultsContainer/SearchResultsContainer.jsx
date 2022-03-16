@@ -9,9 +9,8 @@ export const SearchReSultsContainer = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(USERS_SELECTORS.getUsers);
-    const loading = useSelector(USERS_SELECTORS.getUsersLoading);
     const query = useSelector(QUERY_SELECTORS.getQuery);
-    const [searchedUsers, setSearchedUsers ]= useState([]);
+    const [searchedUsers, setSearchedUsers] = useState([]);
 
     useEffect(() => {
         dispatch(USERS_ACTIONS.fetchUsers())
@@ -19,11 +18,10 @@ export const SearchReSultsContainer = () => {
     }, [dispatch])
 
     useEffect(() => {
-        !_.isEmpty(users) && setSearchedUsers(users.filter(element => element.name.includes(query))) ;
-    }, [users,query])
+        !_.isEmpty(users) && setSearchedUsers(users.filter(element => element.name.includes(query)));
+    }, [users, query])
 
     return (
-
-      <UsersTable data={searchedUsers} loading={loading}/>
+        <UsersTable data={searchedUsers} />
     )
 }

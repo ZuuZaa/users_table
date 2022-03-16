@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from 'react';
-import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper, Box, Collapse } from '@mui/material';
+import { Table as MuiTable, Typography, IconButton, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper, Box, Collapse } from '@mui/material';
 import { isEmpty } from "lodash";
 import { Description } from '@mui/icons-material'
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Table = ({ columns, rows }) => {
   const [page, setPage] = useState(0);
@@ -24,8 +25,6 @@ export const Table = ({ columns, rows }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-
 
   const data = rows.data;
 
@@ -55,11 +54,13 @@ export const Table = ({ columns, rows }) => {
                     <>
                       <TableRow hover key={row.id} onClick={() => collapseHandler(row.id)}>
                         {columns.map((column) => {
-                          if (column.render) {
+                          if (column.key === "actions") {
                             return (
                               <TableCell key={`${column.key}-${row.id}`}>
-                                <Box>
-                                  {column.render(row)}
+                                <Box display='flex' width='100%' justifyContent='flex-start' alignItems='center'>
+                                  <IconButton >
+                                    {collapse[row.id] ? <KeyboardArrowDownIcon fontSize="'large'" /> : <ArrowForwardIosIcon sx={{ fontSize: 16 }} />}
+                                  </IconButton>
                                 </Box>
                               </TableCell>
                             )
@@ -79,12 +80,19 @@ export const Table = ({ columns, rows }) => {
                       </TableRow>
                       <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
                         <TableRow key={`${row.id}-${row.name}-collapse`} >
-                          <TableCell>
-                          <Typography>Name:{row.name}</Typography>
+                          <TableCell key={`${row.id}-${row.name}-collapse-cell`} >
+                            <Typography>Name: {row.name}</Typography>
                           </TableCell>
                         </TableRow>
                       </Collapse>
-
+                      {/* {
+                        collapse[row.id] &&
+                        <TableRow key={`${row.id}-${row.name}-collapse`} >
+                          <TableCell key={`${row.id}-${row.name}-collapse-cell`} >
+                            <Typography>Name:{row.name}</Typography>
+                          </TableCell>
+                        </TableRow>
+                      } */}
                     </>
                   );
                 })
