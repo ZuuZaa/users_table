@@ -3,9 +3,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { Box, IconButton } from "@mui/material";
 
-
-
 export const UsersTable = (data) => {
+
+
   const tableHeader = [
     {
       key: "actions",

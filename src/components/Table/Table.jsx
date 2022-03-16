@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper, CircularProgress, Box } from '@mui/material';
+import { Table as MuiTable, Typography, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper, Box, Collapse } from '@mui/material';
 import { isEmpty } from "lodash";
 import { Description } from '@mui/icons-material'
 
@@ -8,6 +8,14 @@ import { Description } from '@mui/icons-material'
 export const Table = ({ columns, rows }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
+  const [collapse, setCollapse] = useState({});
+
+
+  const collapseHandler = (id) => {
+    setCollapse(old => ({ ...old, [id]: !old[id] }));
+    console.log('collapse', collapse)
+  }
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -17,9 +25,9 @@ export const Table = ({ columns, rows }) => {
     setPage(0);
   };
 
-  const data = rows.data;
 
-  console.log('data',data)
+
+  const data = rows.data;
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -38,36 +46,46 @@ export const Table = ({ columns, rows }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+
             {
               !isEmpty(data) && data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
-                  {console.log('row',)}
                   return (
-                    <TableRow hover key={row.id}>
-                      {columns.map((column) => {
-                        if (column.render) {
-                          return (
-                            <TableCell key={column.key}>
-                              <Box>
-                                {column.render(row)}
-                              </Box>
-                            </TableCell>
-                          )
-                        } else {
-                          const value = row[column.key];
-                          return (
-                            <TableCell key={column.key}>
-                              <Box >
-                                <Typography>
-                                  {value}
-                                </Typography>
-                              </Box>
-                            </TableCell>
-                          )
-                        }
-                      })}
-                    </TableRow>
+                    <>
+                      <TableRow hover key={row.id} onClick={() => collapseHandler(row.id)}>
+                        {columns.map((column) => {
+                          if (column.render) {
+                            return (
+                              <TableCell key={`${column.key}-${row.id}`}>
+                                <Box>
+                                  {column.render(row)}
+                                </Box>
+                              </TableCell>
+                            )
+                          } else {
+                            const value = row[column.key];
+                            return (
+                              <TableCell key={`${column.key}-${row.id}`}>
+                                <Box >
+                                  <Typography>
+                                    {value}
+                                  </Typography>
+                                </Box>
+                              </TableCell>
+                            )
+                          }
+                        })}
+                      </TableRow>
+                      <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
+                        <TableRow key={`${row.id}-${row.name}-collapse`} >
+                          <TableCell>
+                          <Typography>Name:{row.name}</Typography>
+                          </TableCell>
+                        </TableRow>
+                      </Collapse>
+
+                    </>
                   );
                 })
             }
