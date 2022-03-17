@@ -29,9 +29,9 @@ export const Table = ({ columns, rows }) => {
   const data = rows.data;
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <MuiTable stickyHeader aria-label="sticky table">
+    <Paper>
+      <TableContainer >
+        <MuiTable aria-label="collapsible table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -79,12 +79,16 @@ export const Table = ({ columns, rows }) => {
                         })}
                       </TableRow>
                       <TableRow>
-                      <TableCell sx={{ padding: 2 }} colSpan={6}>
-                        <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
-                          <Typography>Name: {row.name} </Typography>
-                        </Collapse>
-                      </TableCell>
-                    </TableRow>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                          <Collapse in={collapse[row.id]} timeout="auto" unmountOnExit>
+                            <Box sx={{ margin: 1 }}>
+                              <Typography variant="h6" gutterBottom component="div">
+                                Name: {row.name}
+                              </Typography>
+                            </Box>
+                          </Collapse>
+                        </TableCell>
+                      </TableRow>
                     </React.Fragment>
                   );
                 })
