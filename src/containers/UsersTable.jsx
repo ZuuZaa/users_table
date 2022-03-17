@@ -4,27 +4,27 @@ const tableHeader = [
   {
     key: "actions",
     label: "",
-    minWidth: { minWidth: 50 }
+    width: 50
   },
   {
     key: "name",
     label: "Name",
-    minWidth: { minWidth: 170 }
+    width: 170 
   },
   {
     key: "email",
     label: "Email address",
-    minWidth: { minWidth: 170 }
+    width: 170 
   },
   {
     key: "phone",
     label: "Phone Number",
-    minWidth: { minWidth: 170 }
+    width: 170 
   },
   {
     key: "website",
     label: "Official Site",
-    minWidth: { minWidth: 170 }
+    width: 170 
   },
 ]
 

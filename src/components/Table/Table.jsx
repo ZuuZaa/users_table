@@ -37,7 +37,7 @@ export const Table = ({ columns, rows }) => {
               {columns.map((column) => (
                 <TableCell
                   key={column.key}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ width: column.width }}
                 >
                   <Typography>{column.label}</Typography>
                 </TableCell>
@@ -49,9 +49,9 @@ export const Table = ({ columns, rows }) => {
             {
               !isEmpty(data) && data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                .map((row, index) => {
                   return (
-                    <>
+                    <React.Fragment key={index} >
                       <TableRow hover key={row.id} onClick={() => collapseHandler(row.id)}>
                         {columns.map((column) => {
                           if (column.key === "actions") {
@@ -78,22 +78,14 @@ export const Table = ({ columns, rows }) => {
                           }
                         })}
                       </TableRow>
-                      <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
-                        <TableRow key={`${row.id}-${row.name}-collapse`} >
-                          <TableCell key={`${row.id}-${row.name}-collapse-cell`} >
-                            <Typography>Name: {row.name}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      </Collapse>
-                      {/* {
-                        collapse[row.id] &&
-                        <TableRow key={`${row.id}-${row.name}-collapse`} >
-                          <TableCell key={`${row.id}-${row.name}-collapse-cell`} >
-                            <Typography>Name:{row.name}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      } */}
-                    </>
+                      <TableRow>
+                      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                        <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
+                          <Typography>Name: {row.name}</Typography>
+                        </Collapse>
+                      </TableCell>
+                    </TableRow>
+                    </React.Fragment>
                   );
                 })
             }
