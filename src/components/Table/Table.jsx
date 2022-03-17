@@ -79,9 +79,9 @@ export const Table = ({ columns, rows }) => {
                         })}
                       </TableRow>
                       <TableRow>
-                      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                      <TableCell sx={{ padding: 2 }} colSpan={6}>
                         <Collapse in={collapse[row.id]} key={`${row.id}-collapse`}>
-                          <Typography>Name: {row.name}</Typography>
+                          <Typography>Name: {row.name} </Typography>
                         </Collapse>
                       </TableCell>
                     </TableRow>
